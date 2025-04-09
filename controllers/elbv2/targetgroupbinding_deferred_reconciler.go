@@ -100,13 +100,13 @@ func (d *deferredTargetGroupBindingReconcilerImpl) handleDeferredItem(nsn types.
 		d.handleDeferredItemError(nsn, err, "Failed to reset TGB checkpoint")
 		return
 	}
-	d.logger.Info("TGB checkpoint reset", "TGB", nsn)
+	d.logger.Info("TGB checkpoint reset", "tgb", nsn)
 }
 
 func (d *deferredTargetGroupBindingReconcilerImpl) handleDeferredItemError(nsn types.NamespacedName, err error, msg string) {
 	err = client.IgnoreNotFound(err)
 	if err != nil {
-		d.logger.Error(err, msg, "TGB", nsn)
+		d.logger.Error(err, msg, "tgb", nsn)
 		d.enqueue(nsn)
 	}
 }
