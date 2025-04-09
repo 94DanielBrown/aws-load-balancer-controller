@@ -269,17 +269,5 @@ func getLoggerWithLogLevel(logLevel string) logr.Logger {
 	logger := zap.New(zap.UseDevMode(false),
 		zap.Level(zapLevel),
 		zap.StacktraceLevel(zapraw.NewAtomicLevelAt(zapraw.FatalLevel)))
-
-	return runtime.NewConciseLogger(rawLogger.WithOptions(zap.Hooks(func(entry zapcore.Entry) error {
-		for i, field := range entry.Fields {
-			entry.Fields[i] = zapcore.Field{
-				Key:       strings.ToLower(field.Key),
-				Type:      field.Type,
-				Integer:   field.Integer,
-				String:    field.String,
-				Interface: field.Interface,
-			}
-		}
-		return nil
-	})))
+	return runtime.NewConciseLogger(logger)
 }
